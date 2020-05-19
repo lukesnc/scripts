@@ -1,25 +1,23 @@
-# mason nigga
-import requests
-from progress.bar import Bar
+# Filters through a large list of links and strips out the ones that 404
 
-FILE_PATH = "A_Long_List.txt"
+import requests  # pip3 install requests
+from progress.bar import Bar  # pip3 install progress
+
+IN_FILE = "A_Long_List.txt"
 OUT_FILE = "out.txt"
-MAX = 100
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36'}
 
-in_file = open(FILE_PATH, 'r')
-out_file = open(OUT_FILE, 'w')
+bar = Bar("Checking links...", max=20000)
+broken_links_found = 0
+with open(IN_FILE, 'r') as in_f, open(OUT_FILE, 'w') as out_f:
+    for line in in_f: # each line has a url
+        status_code = requests.get(line, headers=headers).status_code
+        if status_code != 404:
+            out_f.writelines(line)
+        else:
+            broken_links_found += 1
+        bar.next()
 
-bar = Bar("Checking links...")
-i = 0
-for line in in_file:
-  try:
-    r = requests.get(line, auth=('user', 'pass'))
-    if 404 not in r.history:
-      out_file.writelines(line)
-  except:
-    pass
-  bar.next()
-
-in_file.close()
-out_file.close()
-print("\nDone!")
+bar.finish()
+print("\nDone! Broken links found:", broken_links_found)
