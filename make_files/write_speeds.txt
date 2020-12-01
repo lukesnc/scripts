@@ -1,7 +1,0 @@
-20 files @ 200 mb each
-EXPONENTIAL MODIFIER
-
-6 - 14.49 sec
-7 - 9.96 sec
-8 - 10.12 sec
-9 - 20.82 sec - shit starts breaking
