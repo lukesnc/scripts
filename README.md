@@ -1,2 +1,2 @@
 # scripts
-Collection of small scripts I've written
+Collection of scripts I've written
