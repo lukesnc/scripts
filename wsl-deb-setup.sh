@@ -8,7 +8,7 @@ sudo apt autoclean
 sudo apt autoremove -y
 
 # Base
-sudo apt install -y build-essential curl git
+sudo apt install -y build-essential curl git wget ssh
 # Langs
 sudo apt install -y python3 python3-pip python3-venv python2 ruby golang-go perl php gcc g++ default-jdk nodejs
 # Extras
