@@ -8,11 +8,11 @@ sudo apt autoclean
 sudo apt autoremove -y
 
 # Base
-sudo apt install -y build-essential curl git wget ssh
+sudo apt install -y build-essential unzip curl git wget ssh
 # Langs
 sudo apt install -y python3 python3-pip python3-venv ruby-full golang-go perl php gcc g++ default-jdk nodejs
 # Extras
-sudo apt install -y libimage-exiftool-perl vim ranger nmap netcat neofetch man-db
+sudo apt install -y libimage-exiftool-perl vim ranger nmap jq netcat neofetch man-db
 
 # Append bashrc
 echo >> ~/.bashrc
