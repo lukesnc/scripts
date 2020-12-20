@@ -20,4 +20,7 @@ echo "#####" >> ~/.bashrc
 echo "cd ~" >> ~/.bashrc
 echo 'export PATH="$PATH:/mnt/c/Program Files/Microsoft VS Code/bin"' >> ~/.bashrc
 
+# Symlink to windows home dir
+ln -s "/mnt/c/Users/$USER" "~/win-home"
+
 echo "Done. Restart bash."
