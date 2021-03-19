@@ -23,7 +23,11 @@ if len(sys.argv) != 2:
 
 def main():
     folder_path = Path(sys.argv[1]).resolve()
-    dir_listing = os.listdir(folder_path)
+    try:
+        dir_listing = os.listdir(folder_path)
+    except FileNotFoundError:
+        print("error - couldn't find that folder, exiting\n")
+        sys.exit(1)
 
     file_parts = dir_listing[0].split(' ')
 
@@ -48,7 +52,7 @@ def main():
         if choice not in range(1, len(file_parts)+1):
             raise Exception
     except:
-        print("Invalid choice. Exiting.\n")
+        print("error - invalid choice, exiting\n")
         sys.exit(1)
 
     # Rename files
@@ -71,5 +75,5 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print("\nExiting.\n")
+        print("\nCancelled by user\n")
     sys.exit()
