@@ -26,7 +26,7 @@ def main():
     try:
         dir_listing = os.listdir(folder_path)
     except FileNotFoundError:
-        print("error - couldn't find that folder, exiting\n")
+        sys.stderr.write("error - Couldn't find that folder\n\n")
         sys.exit(1)
 
     file_parts = dir_listing[0].split(' ')
@@ -49,10 +49,9 @@ def main():
     # Get selection
     try:
         choice = int(input("Keep file names starting at position: "))
-        if choice not in range(1, len(file_parts)+1):
-            raise Exception
+        assert choice in range(1, len(file_parts)+1)
     except:
-        print("error - invalid choice, exiting\n")
+        sys.stderr.write("error - invalid choice, exiting\n")
         sys.exit(1)
 
     # Rename files
@@ -75,5 +74,5 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print("\nCancelled by user\n")
+        sys.stdout.write("\nCancelled by user\n")
     sys.exit()
