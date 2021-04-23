@@ -31,14 +31,14 @@ def main():
 
     file_parts = dir_listing[0].split(' ')
 
-    # Display first file
+    # First file in dir
     print(dir_listing[0], end='\n\n')
     print("Parts:")
 
-    # Show file name parts
+    # Show file parts
     print("  ", " | ".join(file_parts))
 
-    # Show selector options
+    # Selector
     print("   ", end='')
     for i in range(0, len(file_parts)):
         print(f"[{i+1}]" +
@@ -46,7 +46,6 @@ def main():
               end='')
     print()
 
-    # Get selection
     try:
         choice = int(input("Keep file names starting at position: "))
         assert choice in range(1, len(file_parts)+1)
@@ -54,14 +53,11 @@ def main():
         sys.stderr.write("error - invalid choice, exiting\n")
         sys.exit(1)
 
-    # Rename files
     print("Renaming files...")
     for file in dir_listing:
-        # Build paths
         file_parts = [p.strip() for p in file.split(' ')]
         new_path = ''.join(file_parts[(choice-1):]).strip()
 
-        # Rename files
         old = Path(folder_path, file)
         new = Path(folder_path, new_path)
         old.rename(new)
