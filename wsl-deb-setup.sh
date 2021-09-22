@@ -3,14 +3,14 @@
 
 # Updates
 sudo apt update
-sudo apt full-upgrade -y
-sudo apt autoclean
+sudo apt dist-upgrade -y
 sudo apt autoremove -y
+sudo apt autoclean
 
 # Base
 sudo apt install -y build-essential unzip curl git wget ssh
 # Langs
-sudo apt install -y python3 python3-pip python3-venv ruby-full golang-go php gcc g++ default-jdk nodejs
+sudo apt install -y python3 python3-pip python3-venv gcc g++ default-jdk
 # Extras
 sudo apt install -y vim ranger nmap jq netcat neofetch man-db
 
