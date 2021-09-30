@@ -16,7 +16,7 @@ if sys.version_info < (3, 6):
     sys.stdout.write("Requires Python 3.6 or newer\n")
     sys.exit(1)
 
-if len(sys.argv) != 2:
+if len(sys.argv) <= 1:
     sys.stderr.write("error - Provide a folder path\n")
     sys.exit(1)
 
@@ -29,7 +29,9 @@ def main():
         sys.stderr.write("error - Couldn't find that folder\n\n")
         sys.exit(1)
 
-    file_parts = dir_listing[0].split(' ')
+    # Split based on arg, default is SPACE
+    seperator = sys.argv[2] if len(sys.argv) > 2 else ' '
+    file_parts = dir_listing[0].split(seperator)
 
     # First file in dir
     print(dir_listing[0], end='\n\n')
@@ -53,9 +55,10 @@ def main():
         sys.stderr.write("error - invalid choice, exiting\n")
         sys.exit(1)
 
+    # Move files based on selection
     print("Renaming files...")
     for file in dir_listing:
-        file_parts = [p.strip() for p in file.split(' ')]
+        file_parts = [p.strip() for p in file.split(seperator)]
         new_path = ''.join(file_parts[(choice-1):]).strip()
 
         old = Path(folder_path, file)
