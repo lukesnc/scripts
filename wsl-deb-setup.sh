@@ -13,7 +13,7 @@ sudo apt install -y build-essential unzip curl git wget ssh
 sudo apt install -y vim nmap jq netcat neofetch man-db
 
 # Symlink to windows home dir
-ln -sf "/mnt/c/Users/$USER" ~/win-home
+ln -sf "/mnt/c/Users/$USER" ~/winhome
 
 # Use custom aliases
 cp ./.bash_aliases ~
