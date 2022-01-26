@@ -8,70 +8,69 @@
 #
 # Author: Luke Simone
 
-import os
 import sys
-from pathlib import Path
 
 if sys.version_info < (3, 6):
     sys.stdout.write("Requires Python 3.6 or newer\n")
     sys.exit(1)
 
-if len(sys.argv) <= 1:
-    sys.stderr.write("error - Provide a folder path\n")
-    sys.exit(1)
+import os
+from pathlib import Path
+from argparse import ArgumentParser
 
 
-def main():
-    folder_path = Path(sys.argv[1]).resolve()
+def main(args):
+    dir_path = Path(args.dir).resolve()
     try:
-        dir_listing = os.listdir(folder_path)
+        dir_ls = os.listdir(dir_path)
+    except NotADirectoryError:
+        sys.stderr.write("error - Provided path is not a directory\n")
+        sys.exit(1)
     except FileNotFoundError:
-        sys.stderr.write("error - Couldn't find that folder\n\n")
+        sys.stderr.write("error - Couldn't find that folder\n")
         sys.exit(1)
 
-    # Split based on arg, default is SPACE
-    seperator = sys.argv[2] if len(sys.argv) > 2 else ' '
-    file_parts = dir_listing[0].split(seperator)
+    file_parts = dir_ls[0].split(args.separator)
 
-    # First file in dir
-    print(dir_listing[0], end='\n\n')
-    print("Parts:")
-
-    # Show file parts
+    # Display split file name and options
+    print(dir_ls[0] + "\n\nParts:")
     print("  ", " | ".join(file_parts))
 
-    # Selector
     print("   ", end='')
     for i in range(0, len(file_parts)):
-        print(f"[{i+1}]" +
-              ' ' * len(file_parts[i]),
-              end='')
+        print(f"[{i+1}]" + ' ' * len(file_parts[i]), end='')
     print()
 
     try:
         choice = int(input("Keep file names starting at position: "))
         assert choice in range(1, len(file_parts)+1)
-    except:
-        sys.stderr.write("error - invalid choice, exiting\n")
+    except (ValueError, AssertionError):
+        sys.stderr.write("error - Invalid choice, exiting\n")
         sys.exit(1)
 
     # Move files based on selection
     print("Renaming files...")
-    for file in dir_listing:
-        file_parts = [p.strip() for p in file.split(seperator)]
-        new_path = ''.join(file_parts[(choice-1):]).strip()
+    for file in dir_ls:
+        file_parts = [p.strip() for p in file.split(args.separator)]
+        new_file_name = ''.join(file_parts[(choice-1):]).strip()
 
-        old = Path(folder_path, file)
-        new = Path(folder_path, new_path)
-        old.rename(new)
-        print(file, "-->", new_path)
+        old_path = Path(dir_path, file)
+        new_path = Path(dir_path, new_file_name)
+        old_path.rename(new_path)
+        print(file, "-->", new_file_name)
 
     print("Done")
 
 
 if __name__ == '__main__':
     try:
-        main()
+        parser = ArgumentParser(description="Rename track stems")
+        parser.add_argument('dir', type=str,
+                            help="Folder containing the track stems")
+        parser.add_argument('-s', '--separator', type=str, default=' ',
+                            help="Specify a different file name separator character, default is SPACE (Example: _)")
+        args = parser.parse_args()
+        main(args)
     except KeyboardInterrupt:
         sys.stdout.write("\nCancelled by user\n")
     sys.exit()
