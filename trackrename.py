@@ -57,7 +57,7 @@ def main(args):
         old_path = Path(dir_path, file)
         new_path = Path(dir_path, new_file_name)
         old_path.rename(new_path)
-        print(file, "-->", new_file_name)
+        print(f"\33[31m{file}\33[0m --> \33[32m{new_file_name}\33[0m")
 
     print("Done")
 
