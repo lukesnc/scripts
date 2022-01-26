@@ -1,8 +1,5 @@
-# Personal Windows setup script
-# MUSE BE RUN AS ADMINISTRATOR
-# CHOCOLATEY MUST BE INSTALLED
+# Requirements: chocolatey
 
-powercfg.exe /h off
 choco upgrade all -y
 
 # Essential Software
