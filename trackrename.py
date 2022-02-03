@@ -8,15 +8,10 @@
 #
 # Author: Luke Simone
 
-import sys
-
-if sys.version_info < (3, 6):
-    sys.stdout.write("Requires Python 3.6 or newer\n")
-    sys.exit(1)
-
 import os
-from pathlib import Path
+import sys
 from argparse import ArgumentParser
+from pathlib import Path
 
 
 def main(args):
