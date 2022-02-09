@@ -2,10 +2,9 @@
 
 choco upgrade all -y
 
-# Essential Software
-choco install 7zip googlechrome vlc jre8 vscode spotify steam reaper discord -y
+choco install 7zip googlechrome vlc jre8 vscode spotify steam discord -y
+choco install reaper reapack reaper-sws-extension -y
 
-# Extras
 $response = Read-Host "Install extra software? [y/n]: "
 if ( $response -eq "y" ) 
 {
