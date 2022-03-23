@@ -25,11 +25,8 @@ def main():
     dir_path = Path(args.dir).resolve()
     try:
         dir_ls = os.listdir(dir_path)
-    except NotADirectoryError:
-        sys.stderr.write("error - Provided path is not a directory\n")
-        sys.exit(1)
-    except FileNotFoundError:
-        sys.stderr.write("error - Couldn't find that folder\n")
+    except (NotADirectoryError, FileNotFoundError):
+        sys.stderr.write("error - Provided folder path is invalid\n")
         sys.exit(1)
 
     file_parts = dir_ls[0].split(args.separator)
