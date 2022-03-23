@@ -14,7 +14,14 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 
-def main(args):
+def main():
+    parser = ArgumentParser(description="Rename track stems")
+    parser.add_argument('dir', type=str,
+                        help="Folder containing the track stems")
+    parser.add_argument('-s', '--separator', type=str, default=' ',
+                        help="Specify a different file name separator character, default is SPACE (Example: _)")
+    args = parser.parse_args()
+
     dir_path = Path(args.dir).resolve()
     try:
         dir_ls = os.listdir(dir_path)
@@ -58,14 +65,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    try:
-        parser = ArgumentParser(description="Rename track stems")
-        parser.add_argument('dir', type=str,
-                            help="Folder containing the track stems")
-        parser.add_argument('-s', '--separator', type=str, default=' ',
-                            help="Specify a different file name separator character, default is SPACE (Example: _)")
-        args = parser.parse_args()
-        main(args)
-    except KeyboardInterrupt:
-        sys.stdout.write("\nCancelled by user\n")
-    sys.exit()
+    main()
