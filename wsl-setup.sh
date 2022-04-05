@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sudo apt install -y build-essential unzip curl git wget ssh
 # Arch
