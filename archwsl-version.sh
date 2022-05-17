@@ -6,4 +6,3 @@ curl -s -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/yuk7/ArchWSL/releases | \
   grep "tag_name" | \
   head -1 | cut -c 18-26
-
