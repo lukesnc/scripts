@@ -1,2 +1,7 @@
 # scripts
-Collection of scripts I've written
+
+## WSL Setup
+Symlink to Windows home dir
+```bash
+ln -sf "/mnt/c/Users/$USER" ~/winhome
+```
