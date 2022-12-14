@@ -4,7 +4,7 @@ echo "WSL Setup Script"
 #echo
 
 cd ~
-sudo apt install -y build-essential unzip curl git wget ssh
+sudo apt install -y build-essential unzip curl git wget ssh vim
 git clone https://github.com/lukesnc/scripts.git
 
 cp scripts/.bash_aliases .
