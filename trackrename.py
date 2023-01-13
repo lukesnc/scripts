@@ -6,7 +6,7 @@
 # Perfect for track stems that have something
 # dumb before the name of the instrument.
 #
-# Author: Luke Simone
+# Author: lukesnc
 
 import os
 import sys
