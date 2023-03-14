@@ -18,15 +18,15 @@ def main():
 
     qtr_note_hz = bpm / 60
     table = {
-        "WHL ": qtr_note_hz / 4,
-        "1/2 ": qtr_note_hz / 2,
-        "1/4 ": qtr_note_hz,
-        "1/8 ": qtr_note_hz * 2,
+        " WHL": qtr_note_hz / 4,
+        " 1/2": qtr_note_hz / 2,
+        " 1/4": qtr_note_hz,
+        " 1/8": qtr_note_hz * 2,
         "1/16": qtr_note_hz * 4,
         "1/32": qtr_note_hz * 8
     }
 
-    print("BPM :", bpm)
+    print(" BPM:", bpm)
     for key, val in table.items():
         print(f"{key}: {val:.3f} Hz")
     return 0
