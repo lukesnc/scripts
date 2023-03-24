@@ -16,10 +16,14 @@ from pathlib import Path
 
 def main():
     parser = ArgumentParser(description="Rename track stems")
-    parser.add_argument('dir', type=str,
-                        help="Folder containing the track stems")
-    parser.add_argument('-s', '--separator', type=str, default=' ',
-                        help="Specify a different file name separator character, default is SPACE (Example: _)")
+    parser.add_argument("dir", type=str, help="Folder containing the track stems")
+    parser.add_argument(
+        "-s",
+        "--separator",
+        type=str,
+        default=" ",
+        help="Specify a different file name separator character, default is SPACE (Example: _)",
+    )
     args = parser.parse_args()
 
     dir_path = Path(args.dir).resolve()
@@ -27,7 +31,7 @@ def main():
         dir_ls = os.listdir(dir_path)
     except (NotADirectoryError, FileNotFoundError):
         sys.stderr.write("error - Provided folder path is invalid\n")
-        sys.exit(1)
+        return 1
 
     file_parts = dir_ls[0].split(args.separator)
 
@@ -35,23 +39,23 @@ def main():
     print(dir_ls[0] + "\n\nParts:")
     print("  ", " | ".join(file_parts))
 
-    print("   ", end='')
+    print("   ", end="")
     for i in range(0, len(file_parts)):
-        print(f"[{i+1}]" + ' ' * len(file_parts[i]), end='')
+        print(f"[{i+1}]" + " " * len(file_parts[i]), end="")
     print()
 
     try:
         choice = int(input("Keep file names starting at position: "))
-        assert choice in range(1, len(file_parts)+1)
+        assert choice in range(1, len(file_parts) + 1)
     except (ValueError, AssertionError):
         sys.stderr.write("error - Invalid choice, exiting\n")
-        sys.exit(1)
+        return 1
 
     # Move files based on selection
     print("Renaming files...")
     for file in dir_ls:
         file_parts = [p.strip() for p in file.split(args.separator)]
-        new_file_name = ''.join(file_parts[(choice-1):]).strip()
+        new_file_name = "".join(file_parts[(choice - 1) :]).strip()
 
         old_path = Path(dir_path, file)
         new_path = Path(dir_path, new_file_name)
@@ -59,8 +63,8 @@ def main():
         print(f"\33[31m{file}\33[0m --> \33[32m{new_file_name}\33[0m")
 
     print("Done")
+    return 0
 
 
-if __name__ == '__main__':
-    main()
-    sys.exit(0)
+if __name__ == "__main__":
+    sys.exit(main())
