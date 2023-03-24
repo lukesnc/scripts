@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt install -y build-essential unzip curl git wget ssh vim python3 python3-pip
 git config --global core.editor vim
-git config pull.rebase false
+git config --global pull.rebase false
 
 # Install awesome vimrc
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
