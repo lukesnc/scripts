@@ -18,11 +18,13 @@ def main() -> int:
 
     qtr_note_hz = bpm / 60
     print("BPM is", bpm)
-    print("=" * 15)
+    print("=" * 32)
 
     note = 4
     while note >= 1 / 32:
-        print(f"{str(Fraction(note)):>4}: {qtr_note_hz / (4 * note):.3f} Hz")
+        hz = qtr_note_hz / (4 * note)
+        ms = (60000 / bpm) * (note * 4)
+        print(f"| {str(Fraction(note)):>4} | {hz:>6.3f} Hz | {ms:>6.0f} ms |")
         note /= 2
 
     return 0
