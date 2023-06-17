@@ -1,21 +1,12 @@
 #!/usr/bin/env python3
 # Author: lukesnc
 
-import sys
+from argparse import ArgumentParser
 from fractions import Fraction
 
 
-def main() -> int:
-    if len(sys.argv) != 2:
-        sys.stderr.write("error - please provide a BPM (beats per minute)\n")
-        return 1
-
-    try:
-        bpm = int(sys.argv[1])
-    except ValueError:
-        sys.stderr.write("error - that's not a BPM (beats per minute)\n")
-        return 1
-
+def main(args):
+    bpm = args.bpm
     qtr_note_hz = bpm / 60
     print("BPM is", bpm)
     print("=" * 32)
@@ -27,8 +18,9 @@ def main() -> int:
         print(f"| {str(Fraction(note)):>4} | {hz:>6.3f} Hz | {ms:>6.0f} ms |")
         note /= 2
 
-    return 0
-
 
 if __name__ == "__main__":
-    sys.exit(main())
+    parser = ArgumentParser(description="Convert BPM to Hz and ms")
+    parser.add_argument("bpm", type=int, help="Beats per minute")
+    args = parser.parse_args()
+    main(args)
