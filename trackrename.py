@@ -9,18 +9,17 @@
 # Author: lukesnc
 
 import os
-import sys
 from argparse import ArgumentParser
 from pathlib import Path
 
 
-def main(args) -> int:
+def main(args):
     dir_path = Path(args.dir).resolve()
     try:
         dir_ls = os.listdir(dir_path)
     except (NotADirectoryError, FileNotFoundError):
-        sys.stderr.write("error - Provided folder path is invalid\n")
-        return 1
+        print("error - Provided folder path is invalid")
+        return
 
     file_parts = dir_ls[0].split(args.separator)
 
@@ -37,8 +36,8 @@ def main(args) -> int:
         choice = int(input("Keep file names starting at position: "))
         assert choice in range(1, len(file_parts) + 1)
     except (ValueError, AssertionError):
-        sys.stderr.write("error - Invalid choice, exiting\n")
-        return 1
+        print("error - Invalid choice, exiting")
+        return
 
     # Move files based on selection
     print("Renaming files...")
@@ -52,7 +51,6 @@ def main(args) -> int:
         print(f"\33[31m{file}\33[0m --> \33[32m{new_file_name}\33[0m")
 
     print("Done")
-    return 0
 
 
 if __name__ == "__main__":
@@ -66,4 +64,7 @@ if __name__ == "__main__":
         help="Specify a different file name separator character, default is SPACE (Example: _)",
     )
     args = parser.parse_args()
-    sys.exit(main())
+    try:
+        main(args)
+    except KeyboardInterrupt:
+        print("\nCanceled by user")
