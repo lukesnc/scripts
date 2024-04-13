@@ -16,20 +16,26 @@ def fetch_kanji_info(kanji):
     bushu = (
         soup.find("div", class_="radicals").find("span").text.split("\n")[-2].strip()
     )
-    onyomi = [
-        res.text.strip()
-        for res in soup.find("div", class_="row kanji-details--section")
-        .find("div", class_="kanji-details__main-readings")
-        .find("dl", class_="dictionary_entry on_yomi")
-        .find_all("a")
-    ]
-    kunyomi = [
-        res.text.strip().split(".")[0]  # remove okurigana
-        for res in soup.find("div", class_="row kanji-details--section")
-        .find("div", class_="kanji-details__main-readings")
-        .find("dl", class_="dictionary_entry kun_yomi")
-        .find_all("a")
-    ]
+    try:
+        onyomi = [
+            res.text.strip()
+            for res in soup.find("div", class_="row kanji-details--section")
+            .find("div", class_="kanji-details__main-readings")
+            .find("dl", class_="dictionary_entry on_yomi")
+            .find_all("a")
+        ]
+    except AttributeError:
+        onyomi = []
+    try:
+        kunyomi = [
+            res.text.strip().split(".")[0]  # remove okurigana
+            for res in soup.find("div", class_="row kanji-details--section")
+            .find("div", class_="kanji-details__main-readings")
+            .find("dl", class_="dictionary_entry kun_yomi")
+            .find_all("a")
+        ]
+    except AttributeError:  # given character has no kunyomi
+        kunyomi = []
     imi = soup.find("div", class_="kanji-details__main-meanings").text.strip()
 
     return {
