@@ -17,23 +17,23 @@ def fetch_kanji_info(kanji):
         soup.find("div", class_="radicals").find("span").text.split("\n")[-2].strip()
     )
     try:
-        onyomi = [
+        onyomi = set(
             res.text.strip()
             for res in soup.find("div", class_="row kanji-details--section")
             .find("div", class_="kanji-details__main-readings")
             .find("dl", class_="dictionary_entry on_yomi")
             .find_all("a")
-        ]
+        )
     except AttributeError:
         onyomi = []
     try:
-        kunyomi = [
+        kunyomi = set(
             res.text.strip().split(".")[0]  # remove okurigana
             for res in soup.find("div", class_="row kanji-details--section")
             .find("div", class_="kanji-details__main-readings")
             .find("dl", class_="dictionary_entry kun_yomi")
             .find_all("a")
-        ]
+        )
     except AttributeError:  # given character has no kunyomi
         kunyomi = []
     imi = soup.find("div", class_="kanji-details__main-meanings").text.strip()
